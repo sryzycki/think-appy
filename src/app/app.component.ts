@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-app',
+  styleUrls: ['./app.component.scss'],
+  template: `
+    <md-toolbar>Positives App</md-toolbar>
+  `
 })
-export class AppComponent {
-  title = 'app';
-}
+export class AppComponent { }
