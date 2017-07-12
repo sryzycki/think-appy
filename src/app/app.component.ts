@@ -5,7 +5,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-app',
   styleUrls: ['./app.component.scss'],
   template: `
-    <md-toolbar>Positives App</md-toolbar>
+    <div class="mat-typography">
+      <md-toolbar>Positives App</md-toolbar>
+      <app-gratitude-diary></app-gratitude-diary>
+    </div>
   `
 })
 export class AppComponent { }
