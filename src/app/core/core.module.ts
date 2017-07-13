@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MdButtonModule,
+  MdInputModule,
   MdListModule,
   MdToolbarModule,
 } from '@angular/material';
@@ -9,6 +11,8 @@ import {
 const CORE_MODULES = [
   CommonModule,
   BrowserAnimationsModule,
+  MdButtonModule,
+  MdInputModule,
   MdListModule,
   MdToolbarModule,
 ];

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CoreModule } from '../core/core.module';
 
+import { GratitudeDiaryService } from './services/gratitude-diary.service';
 import { GratitudeDiaryComponent } from './containers/gratitude-diary/gratitude-diary.component';
 import { GratitudeListComponent } from './components/gratitude-list/gratitude-list.component';
 
@@ -17,6 +18,9 @@ import { GratitudeListComponent } from './components/gratitude-list/gratitude-li
   ],
   exports: [
     GratitudeDiaryComponent,
+  ],
+  providers: [
+    GratitudeDiaryService,
   ],
 })
 export class GratitudeDiaryModule { }

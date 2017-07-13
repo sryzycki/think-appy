@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+} from '@angular/core';
+
+import { Thought } from '../../models/thought';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,10 +15,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       Gratitude list
     </h1>
     <md-list>
-      <md-list-item>Item 1</md-list-item>
-      <md-list-item>Item 2</md-list-item>
-      <md-list-item>Item 3</md-list-item>
+      <md-list-item *ngFor="let item of items">
+        {{ item.text }}
+      </md-list-item>
     </md-list>
   `
 })
-export class GratitudeListComponent { }
+export class GratitudeListComponent {
+  @Input()
+  items: Thought[];
+}
