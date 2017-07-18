@@ -7,6 +7,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   template: `
     <div class="mat-typography">
       <md-toolbar>Think appy</md-toolbar>
+      <br />
       <app-gratitude-diary></app-gratitude-diary>
     </div>
   `

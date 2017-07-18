@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "4.3.0-rc.0",
     "@angular/router": "4.3.0-rc.0",
     "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "github:ngrx/effects-builds",
     "@ngrx/store": "github:ngrx/store-builds",
     "@ngrx/store-devtools": "github:ngrx/store-devtools-builds",
     "core-js": "^2.4.1",

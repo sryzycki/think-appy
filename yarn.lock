@@ -157,6 +157,10 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
 
+"@ngrx/effects@github:ngrx/effects-builds":
+  version "4.0.0-alpha.0"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/f6eae0c8832abd9ab7636b6308c416d6155c1039"
+
 "@ngrx/store-devtools@github:ngrx/store-devtools-builds":
   version "4.0.0-alpha.0"
   resolved "https://codeload.github.com/ngrx/store-devtools-builds/tar.gz/471e6a5d60f49478fe2e2b4378a868edd614d9c3"

@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { GratitudeDiaryService } from '../../services/gratitude-diary.service';
-import * as fromRoot from '../../../state/root.reducer';
+import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
 import * as ThoughtsActions from '../../state/thoughts.actions';
 import { Thought } from '../../models/thought';
 
@@ -32,31 +31,25 @@ import { Thought } from '../../models/thought';
     <br />
     <button
       type="button"
+      style="width: 250px;"
       md-raised-button
+      md-primary
       [disabled]="newThought.value.length < 1"
       (click)="createThought(newThought.value)"
     >Add</button>
   `
 })
-export class GratitudeDiaryComponent implements OnInit {
+export class GratitudeDiaryComponent {
   @ViewChild('newThought')
   newThought: ElementRef;
-  thoughtList: Observable<Thought[]> = this.store.select(fromRoot.getThoughtList);
+  thoughtList: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
 
   constructor(
-    private diaryService: GratitudeDiaryService,
-    private store: Store<fromRoot.State>,
+    private store: Store<fromGratitudeDiaryReducers.State>,
   ) {}
 
-  ngOnInit() {
-    this.store.dispatch(new ThoughtsActions.Load());
-
-    this.diaryService.getThoughts()
-      .subscribe(data => this.store.dispatch(new ThoughtsActions.LoadSuccess(data)));
-  }
-
   createThought(text: string): void {
-    this.store.dispatch(new ThoughtsActions.Add(text));
+    this.store.dispatch(new ThoughtsActions.AddAction(text));
     this.newThought.nativeElement.value = '';
   }
 }

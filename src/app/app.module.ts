@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { CoreModule } from './core/core.module';
 import { GratitudeDiaryModule } from './gratitude-diary/gratitude-diary.module';
 
+import { environment } from '../environments/environment';
 import { reducers } from './state/root.reducer';
 import { AppComponent } from './app.component';
 
@@ -19,9 +21,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     CoreModule,
-    GratitudeDiaryModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    GratitudeDiaryModule,
   ],
   providers: [],
 })
