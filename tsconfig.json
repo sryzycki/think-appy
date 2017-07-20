@@ -5,6 +5,7 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
     "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
