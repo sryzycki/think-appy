@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MdButtonModule,
   MdCardModule,
@@ -9,9 +8,10 @@ import {
   MdToolbarModule,
 } from '@angular/material';
 
+import { PageHeaderComponent } from './components/page-header/page-header.component';
+
 const CORE_MODULES = [
   CommonModule,
-  BrowserAnimationsModule,
   MdButtonModule,
   MdCardModule,
   MdInputModule,
@@ -20,7 +20,13 @@ const CORE_MODULES = [
 ];
 
 @NgModule({
-  exports: CORE_MODULES,
+  exports: [
+    ...CORE_MODULES,
+    PageHeaderComponent,
+  ],
   imports: CORE_MODULES,
+  declarations: [
+    PageHeaderComponent
+  ],
 })
 export class CoreModule { }

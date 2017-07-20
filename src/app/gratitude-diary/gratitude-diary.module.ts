@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -11,6 +12,13 @@ import { GratitudeListComponent } from './components/gratitude-list/gratitude-li
 import { ThoughtsEffects } from './state/thoughts.effects';
 import { gratitudeDiaryReducerFractal, reducers } from './state/gratitude-diary.reducers';
 
+const ROUTES: Routes = [
+  {
+    path: '',
+    component: GratitudeDiaryComponent,
+  }
+];
+
 @NgModule({
   declarations: [
     GratitudeDiaryComponent,
@@ -18,6 +26,7 @@ import { gratitudeDiaryReducerFractal, reducers } from './state/gratitude-diary.
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(ROUTES),
     CoreModule,
     StoreModule.forFeature(gratitudeDiaryReducerFractal, reducers),
     EffectsModule.forFeature([

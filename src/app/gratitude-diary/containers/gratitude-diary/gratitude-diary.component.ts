@@ -11,12 +11,9 @@ import { Thought } from '../../models/thought';
   selector: 'app-gratitude-diary',
   styleUrls: ['./gratitude-diary.component.scss'],
   template: `
-    <md-toolbar
-      class="toolbar"
-      color="primary"
-    >
+    <app-page-header>
       Gratitude list
-    </md-toolbar>
+    </app-page-header>
 
     <md-card>
       <app-gratitude-list
