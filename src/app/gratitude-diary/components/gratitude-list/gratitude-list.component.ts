@@ -15,8 +15,8 @@ import { Thought } from '../../models/thought';
       Gratitude list
     </h1>
     <md-list>
-      <md-list-item *ngFor="let item of items">
-        {{ item.text }}
+      <md-list-item *ngFor="let item of items; index as i">
+        <b>{{ i + 1 }}.&nbsp;</b>{{ item.text }}
       </md-list-item>
     </md-list>
   `

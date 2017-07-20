@@ -1,4 +1,4 @@
-import * as ThoughtsActions from './thoughts.actions';
+import * as fromThoughtsActions from './thoughts.actions';
 import { Thought } from '../models/thought';
 
 export interface State {
@@ -13,37 +13,31 @@ const initialState: State = {
   list: [],
 };
 
-export function reducer(state: State = initialState, action: ThoughtsActions.Actions): State {
+export function reducer(
+  state: State = initialState,
+  action: fromThoughtsActions.Actions,
+): State {
   switch (action.type) {
-    case ThoughtsActions.LOAD:
+    case fromThoughtsActions.LOAD:
       return Object.assign({}, state, {
         isLoading: true,
       });
-    case ThoughtsActions.LOAD_SUCCESS:
-      const thoughtList: Thought[] = action.payload;
 
-      return {
-        ...state,
+    case fromThoughtsActions.LOAD_SUCCESS:
+      return Object.assign({}, state, {
         isLoading: false,
         loaded: true,
-        list: thoughtList,
-      };
-    case ThoughtsActions.ADD:
-      const previousItem: Thought | undefined = state.list[state.list.length - 1];
-      const previousId: string = previousItem && previousItem.id || '-1';
+        list: action.payload,
+      });
 
-      const newThoughtId: string = (parseInt(previousId, 10) + 1).toString();
-      const newThoughtText: string = action.payload;
-
+    case fromThoughtsActions.CREATE_THOUGHT_SUCCESS:
       return Object.assign({}, state, {
         list: [
           ...state.list,
-          {
-            id: newThoughtId,
-            text: newThoughtText,
-          },
+          action.payload,
         ],
       });
+
     default:
       return state;
   }

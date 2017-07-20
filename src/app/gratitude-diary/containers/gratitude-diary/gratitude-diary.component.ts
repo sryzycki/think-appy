@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
-import * as ThoughtsActions from '../../state/thoughts.actions';
+import * as fromThoughtsActions from '../../state/thoughts.actions';
 import { Thought } from '../../models/thought';
 
 @Component({
@@ -49,7 +49,7 @@ export class GratitudeDiaryComponent {
   ) {}
 
   createThought(text: string): void {
-    this.store.dispatch(new ThoughtsActions.AddAction(text));
+    this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(text));
     this.newThought.nativeElement.value = '';
   }
 }

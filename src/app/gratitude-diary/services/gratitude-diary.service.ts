@@ -3,18 +3,28 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { Thought } from '../models/thought';
+import { generateId } from '../../utils/index';
 
 @Injectable()
 export class GratitudeDiaryService {
-  thoughts: Thought[] = [
-    { id: '1', text: 'A thought' },
-    { id: '2', text: 'A thought no 2' },
-    { id: '3', text: 'A thought no 3' },
-  ];
+  // TODO: Move this state over to a database.
+  thoughts: Thought[] = [];
 
-  constructor() {}
+  public constructor() {}
 
-  getThoughts(): Observable<Thought[]> {
+  public fetchThoughts(): Observable<Thought[]> {
     return Observable.of(this.thoughts);
+  }
+
+  public createThought(text: string): Observable<Thought> {
+    const newThought = {
+      id: generateId(),
+      text,
+      timestamp: Date.now(),
+    };
+
+    this.thoughts = [ ...this.thoughts, newThought ];
+
+    return Observable.of(newThought);
   }
 }
