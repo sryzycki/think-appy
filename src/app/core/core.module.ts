@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MdButtonModule,
+  MdCardModule,
   MdInputModule,
   MdListModule,
   MdToolbarModule,
@@ -12,6 +13,7 @@ const CORE_MODULES = [
   CommonModule,
   BrowserAnimationsModule,
   MdButtonModule,
+  MdCardModule,
   MdInputModule,
   MdListModule,
   MdToolbarModule,

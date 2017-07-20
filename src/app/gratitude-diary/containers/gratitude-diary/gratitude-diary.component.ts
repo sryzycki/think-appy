@@ -11,32 +11,35 @@ import { Thought } from '../../models/thought';
   selector: 'app-gratitude-diary',
   styleUrls: ['./gratitude-diary.component.scss'],
   template: `
-    <app-gratitude-list
-      [items]="thoughtList | async"
-      (thoughtSubmitted)="createThought($event)"
-    ></app-gratitude-list>
+    <md-toolbar
+      class="toolbar"
+      color="primary"
+    >
+      Gratitude list
+    </md-toolbar>
 
-    <br />
-    <hr />
-    <br />
+    <md-card>
+      <app-gratitude-list
+        [items]="thoughtList | async"
+        (thoughtSubmitted)="createThought($event)"
+      ></app-gratitude-list>
 
-    <md-input-container>
-      <input
-        style="width: 250px;"
-        placeholder="Your new happy thought"
-        #newThought
-        mdInput
-      />
-    </md-input-container>
-    <br />
-    <button
-      type="button"
-      style="width: 250px;"
-      md-raised-button
-      md-primary
-      [disabled]="newThought.value.length < 1"
-      (click)="createThought(newThought.value)"
-    >Add</button>
+      <md-input-container class="input-container">
+        <input
+          placeholder="Type in your happy thought here"
+          #newThought
+          mdInput
+        />
+      </md-input-container>
+      <button
+        class="button"
+        type="button"
+        md-raised-button
+        color="primary"
+        [disabled]="newThought.value.length < 1"
+        (click)="createThought(newThought.value)"
+      >Add</button>
+    </md-card>
   `
 })
 export class GratitudeDiaryComponent {

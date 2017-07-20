@@ -6,9 +6,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   template: `
     <div class="mat-typography">
-      <md-toolbar>Think appy</md-toolbar>
+      <md-toolbar color="primary">Think appy</md-toolbar>
       <br />
-      <app-gratitude-diary></app-gratitude-diary>
+      <div class="content-wrapper">
+        <app-gratitude-diary></app-gratitude-diary>
+      </div>
     </div>
   `
 })
