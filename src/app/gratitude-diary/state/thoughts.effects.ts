@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take';
 
 import * as fromThoughtsActions from './thoughts.actions';
 import { Thought } from '../models/thought';
@@ -20,7 +21,8 @@ export class ThoughtsEffects {
     .startWith(new fromThoughtsActions.LoadAction())
     .switchMap(() => {
       return this.diaryService
-        .fetchThoughts()
+        .readThoughts()
+        .take(1)
         .map((data: Thought[]) => new fromThoughtsActions.LoadSuccessAction(data))
         .catch((error: any) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)))
     });

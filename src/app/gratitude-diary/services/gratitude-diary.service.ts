@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/throw';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { Thought } from '../models/thought';
@@ -12,10 +15,6 @@ export class GratitudeDiaryService {
     private db: AngularFireDatabase,
   ) {}
 
-  public fetchThoughts(): FirebaseListObservable<Thought[]> {
-    return this.db.list('/gratitudes');
-  }
-
   public createThought(text: string): Observable<Thought> {
     const newThought = {
       id: generateId(),
@@ -23,8 +22,19 @@ export class GratitudeDiaryService {
       timestamp: Date.now(),
     };
 
-    this.fetchThoughts().push(newThought);
+    return Observable.create((observer: Observer<Thought>) => {
+      this.fetchThoughtList()
+        .push(newThought)
+        .then(() => observer.next(newThought))
+        .catch((error: any) => observer.error(error))
+    });
+  }
 
-    return Observable.of(newThought);
+  public readThoughts(): FirebaseListObservable<Thought[]> {
+    return this.fetchThoughtList();
+  }
+
+  private fetchThoughtList(): FirebaseListObservable<Thought[]> {
+    return this.db.list('/gratitudes');
   }
 }
