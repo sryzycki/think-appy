@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { Thought } from '../models/thought';
 import { generateId } from '../../utils/index';
 
 @Injectable()
 export class GratitudeDiaryService {
-  // TODO: Move this state over to a database.
-  thoughts: Thought[] = [];
+  public constructor(
+    private db: AngularFireDatabase,
+  ) {}
 
-  public constructor() {}
-
-  public fetchThoughts(): Observable<Thought[]> {
-    return Observable.of(this.thoughts);
+  public fetchThoughts(): FirebaseListObservable<Thought[]> {
+    return this.db.list('/gratitudes');
   }
 
   public createThought(text: string): Observable<Thought> {
@@ -23,7 +23,7 @@ export class GratitudeDiaryService {
       timestamp: Date.now(),
     };
 
-    this.thoughts = [ ...this.thoughts, newThought ];
+    this.fetchThoughts().push(newThought);
 
     return Observable.of(newThought);
   }
