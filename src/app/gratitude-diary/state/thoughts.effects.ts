@@ -19,24 +19,17 @@ export class ThoughtsEffects {
   loadThoughtList$: Observable<Action> = this.actions$
     .ofType(fromThoughtsActions.LOAD)
     .startWith(new fromThoughtsActions.LoadAction())
-    .switchMap(() => {
-      return this.diaryService
-        .readThoughts()
-        .take(1)
-        .map((data: Thought[]) => new fromThoughtsActions.LoadSuccessAction(data))
-        .catch((error: any) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)))
-    });
+    .switchMap(() => this.diaryService.readThoughts().take(1))
+    .map((data: Thought[]) => new fromThoughtsActions.LoadSuccessAction(data))
+    .catch((error: any) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)));
 
   @Effect()
   createThought$: Observable<Action> = this.actions$
     .ofType(fromThoughtsActions.CREATE_THOUGHT)
     .map((action: fromThoughtsActions.CreateThoughtAction) => action.payload)
-    .switchMap((thoughtText: string) => {
-      return this.diaryService
-        .createThought(thoughtText)
-        .map((thought: Thought) => new fromThoughtsActions.CreateThoughtSuccessAction(thought))
-        .catch((error: any) => Observable.of(new fromThoughtsActions.CreateThoughtErrorAction(error)));
-    });
+    .switchMap((thoughtText: string) => this.diaryService.createThought(thoughtText))
+    .map((thought: Thought) => new fromThoughtsActions.CreateThoughtSuccessAction(thought))
+    .catch((error: any) => Observable.of(new fromThoughtsActions.CreateThoughtErrorAction(error)));
 
   public constructor(
     private actions$: Actions,

@@ -11,19 +11,21 @@ import { generateId } from '../../utils/index';
 
 @Injectable()
 export class GratitudeDiaryService {
+  private thoughtList$: FirebaseListObservable<Thought[]> = this.db.list('/gratitudes');
+
   public constructor(
     private db: AngularFireDatabase,
   ) {}
 
   public createThought(text: string): Observable<Thought> {
-    const newThought = {
+    const newThought: Thought = {
       id: generateId(),
       text,
       timestamp: Date.now(),
     };
 
     return Observable.create((observer: Observer<Thought>) => {
-      this.fetchThoughtList()
+      this.thoughtList$
         .push(newThought)
         .then(() => observer.next(newThought))
         .catch((error: any) => observer.error(error))
@@ -31,10 +33,6 @@ export class GratitudeDiaryService {
   }
 
   public readThoughts(): FirebaseListObservable<Thought[]> {
-    return this.fetchThoughtList();
-  }
-
-  private fetchThoughtList(): FirebaseListObservable<Thought[]> {
-    return this.db.list('/gratitudes');
+    return this.thoughtList$;
   }
 }
