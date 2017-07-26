@@ -13,11 +13,18 @@ import { Thought } from '../../models/thought';
   template: `
     <md-list>
       <md-list-item *ngFor="let item of items; index as i">
-        <b>{{ i + 1 }}.&nbsp;</b>{{ item.text }}
-        <button
-          md-button
-          (click)="delete(item)"
-        >Delete</button>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          style="width: 100%"
+        >
+          <b>{{ i + 1 }}.&nbsp;</b>{{ item.text }}
+          <span fxFlex="grow"></span>
+          <button
+            md-button
+            (click)="delete(item)"
+          >Delete</button>
+        </div>
       </md-list-item>
     </md-list>
   `

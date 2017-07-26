@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MdButtonModule,
   MdCardModule,
@@ -12,6 +13,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 
 const CORE_MODULES = [
   CommonModule,
+  FlexLayoutModule,
   MdButtonModule,
   MdCardModule,
   MdInputModule,
