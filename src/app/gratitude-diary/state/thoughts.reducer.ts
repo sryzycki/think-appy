@@ -38,6 +38,20 @@ export function reducer(
         ],
       });
 
+    case fromThoughtsActions.DELETE_THOUGHT:
+      return Object.assign({}, state, {
+        isLoading: true,
+      });
+
+    case fromThoughtsActions.DELETE_THOUGHT_SUCCESS:
+      const deletedThought: Thought = action.payload;
+      const newList = state.list.filter((item: Thought) => deletedThought.id !== item.id);
+
+      return Object.assign({}, state, {
+        isLoading: false,
+        list: newList,
+      });
+
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Input,
+  Input, Output, EventEmitter,
 } from '@angular/core';
 
 import { Thought } from '../../models/thought';
@@ -14,6 +14,10 @@ import { Thought } from '../../models/thought';
     <md-list>
       <md-list-item *ngFor="let item of items; index as i">
         <b>{{ i + 1 }}.&nbsp;</b>{{ item.text }}
+        <button
+          md-button
+          (click)="delete(item)"
+        >Delete</button>
       </md-list-item>
     </md-list>
   `
@@ -21,4 +25,10 @@ import { Thought } from '../../models/thought';
 export class GratitudeListComponent {
   @Input()
   items: Thought[];
+  @Output()
+  deleted: EventEmitter<Thought> = new EventEmitter<Thought>();
+
+  public delete(item: Thought) {
+    this.deleted.emit(item);
+  }
 }

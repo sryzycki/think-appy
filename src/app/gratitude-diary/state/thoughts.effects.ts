@@ -31,6 +31,14 @@ export class ThoughtsEffects {
     .map((thought: Thought) => new fromThoughtsActions.CreateThoughtSuccessAction(thought))
     .catch((error: any) => Observable.of(new fromThoughtsActions.CreateThoughtErrorAction(error)));
 
+  @Effect()
+  deleteThought$: Observable<Action> = this.actions$
+    .ofType(fromThoughtsActions.DELETE_THOUGHT)
+    .map((action: fromThoughtsActions.DeleteThoughtAction) => action.payload)
+    .switchMap((payload) => this.diaryService.deleteThought(payload))
+    .map((deletedThought) => new fromThoughtsActions.DeleteThoughtSuccessAction(deletedThought))
+    .catch((error: any) => Observable.of(new fromThoughtsActions.DeleteThoughtErrorAction(error)));
+
   public constructor(
     private actions$: Actions,
     private diaryService: GratitudeDiaryService,

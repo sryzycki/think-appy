@@ -18,7 +18,7 @@ import { Thought } from '../../models/thought';
     <md-card>
       <app-gratitude-list
         [items]="thoughtList | async"
-        (thoughtSubmitted)="createThought($event)"
+        (deleted)="onThoughtDeleted($event)"
       ></app-gratitude-list>
 
       <md-input-container class="input-container">
@@ -51,5 +51,9 @@ export class GratitudeDiaryComponent {
   createThought(text: string): void {
     this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(text));
     this.newThought.nativeElement.value = '';
+  }
+
+  onThoughtDeleted(item: Thought) {
+    this.store.dispatch(new fromThoughtsActions.DeleteThoughtAction(item))
   }
 }

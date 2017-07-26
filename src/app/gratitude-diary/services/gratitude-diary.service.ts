@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/throw';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AFUnwrappedDataSnapshot } from 'angularfire2/interfaces';
 
 import { Thought } from '../models/thought';
 import { generateId } from '../../utils/index';
@@ -34,5 +35,12 @@ export class GratitudeDiaryService {
 
   public readThoughts(): FirebaseListObservable<Thought[]> {
     return this.thoughtList$;
+  }
+
+  public deleteThought(item: Thought|AFUnwrappedDataSnapshot): Observable<Thought> {
+    const delete$ = Observable.fromPromise(this.thoughtList$.remove((<AFUnwrappedDataSnapshot>item).$key));
+
+    return delete$
+      .switchMap(() => Observable.of(item));
   }
 }
