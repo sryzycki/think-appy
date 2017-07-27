@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseError } from 'firebase/app';
@@ -6,6 +6,7 @@ import { FirebaseError } from 'firebase/app';
 import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
 import * as fromThoughtsActions from '../../state/thoughts.actions';
 import { Thought } from '../../models/thought';
+import { GratitudeDiaryService } from '../../services/gratitude-diary.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,45 +34,40 @@ import { Thought } from '../../models/thought';
         <md-icon color="warn">error</md-icon>&nbsp;<span>{{ (loadError$ | async)?.message }}</span>
       </div>
 
-      <md-input-container class="input-container">
-        <input
-          placeholder="Type in your happy thought here"
-          #newThought
-          mdInput
-        />
-      </md-input-container>
-      <button
-        class="button"
-        type="button"
-        md-raised-button
-        color="primary"
-        [disabled]="newThought.value.length < 1"
-        (click)="createThought(newThought.value)"
-      >Add</button>
+      <app-gratitude-form
+        [detail]="thought"
+        (added)="onAddedThought($event)"
+      ></app-gratitude-form>
     </md-card>
   `
 })
 export class GratitudeDiaryComponent implements OnInit {
-  @ViewChild('newThought')
-  newThought: ElementRef;
+  thought: Thought;
   isLoading$: Observable<boolean> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadingStatus);
   loadError$: Observable<FirebaseError> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadError);
   thoughtList$: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
 
-  constructor(
+  public constructor(
     private store: Store<fromGratitudeDiaryReducers.State>,
-  ) {}
+    private gratitudeService: GratitudeDiaryService,
+  ) {
+    this.setNewThought();
+  }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.store.dispatch(new fromThoughtsActions.LoadAction());
   }
 
-  createThought(text: string): void {
-    this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(text));
-    this.newThought.nativeElement.value = '';
+  public onThoughtDeleted(item: Thought) {
+    this.store.dispatch(new fromThoughtsActions.DeleteThoughtAction(item))
   }
 
-  onThoughtDeleted(item: Thought) {
-    this.store.dispatch(new fromThoughtsActions.DeleteThoughtAction(item))
+  public onAddedThought(event: Thought) {
+    this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(event));
+    this.setNewThought();
+  }
+
+  private setNewThought() {
+    this.thought = GratitudeDiaryService.getNewThought();
   }
 }

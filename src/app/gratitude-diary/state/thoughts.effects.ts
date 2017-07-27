@@ -27,7 +27,7 @@ export class ThoughtsEffects {
   createThought$: Observable<Action> = this.actions$
     .ofType(fromThoughtsActions.CREATE_THOUGHT)
     .map((action: fromThoughtsActions.CreateThoughtAction) => action.payload)
-    .switchMap((thoughtText: string) => this.diaryService.createThought(thoughtText))
+    .switchMap((thought: Thought) => this.diaryService.createThought(thought))
     .map((thought: Thought) => new fromThoughtsActions.CreateThoughtSuccessAction(thought))
     .catch((error: any) => Observable.of(new fromThoughtsActions.CreateThoughtErrorAction(error)));
 

@@ -31,7 +31,7 @@ export class LoadErrorAction implements Action {
 export class CreateThoughtAction implements Action {
   readonly type = CREATE_THOUGHT;
 
-  constructor(public payload: string) {}
+  constructor(public payload: Thought) {}
 }
 
 export class CreateThoughtSuccessAction implements Action {

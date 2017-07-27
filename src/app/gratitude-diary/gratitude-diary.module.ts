@@ -6,11 +6,12 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { CoreModule } from '../core/core.module';
 
+import { gratitudeDiaryReducerFractal, reducers } from './state/gratitude-diary.reducers';
+import { ThoughtsEffects } from './state/thoughts.effects';
 import { GratitudeDiaryService } from './services/gratitude-diary.service';
 import { GratitudeDiaryComponent } from './containers/gratitude-diary/gratitude-diary.component';
 import { GratitudeListComponent } from './components/gratitude-list/gratitude-list.component';
-import { ThoughtsEffects } from './state/thoughts.effects';
-import { gratitudeDiaryReducerFractal, reducers } from './state/gratitude-diary.reducers';
+import { GratitudeFormComponent } from './components/gratitude-form/gratitude-form.component';
 
 const ROUTES: Routes = [
   {
@@ -23,6 +24,7 @@ const ROUTES: Routes = [
   declarations: [
     GratitudeDiaryComponent,
     GratitudeListComponent,
+    GratitudeFormComponent,
   ],
   imports: [
     CommonModule,
