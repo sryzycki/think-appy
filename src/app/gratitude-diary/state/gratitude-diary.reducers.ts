@@ -16,3 +16,5 @@ export const getFractalState = createFeatureSelector<State>(gratitudeDiaryReduce
 export const getThoughtsState = createSelector(getFractalState, (state: State) => state.thoughts);
 
 export const getThoughtList = createSelector(getThoughtsState, fromThoughtsReducer.getList);
+
+export const getThoughtLoadingStatus = createSelector(getThoughtsState, fromThoughtsReducer.getIsLoading);

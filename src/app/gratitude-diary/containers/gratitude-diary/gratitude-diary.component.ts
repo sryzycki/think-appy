@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,8 +16,12 @@ import { Thought } from '../../models/thought';
     </app-page-header>
 
     <md-card>
+      <md-progress-bar
+        *ngIf="isLoading$ | async"
+        mode="indeterminate"
+      ></md-progress-bar>
       <app-gratitude-list
-        [items]="thoughtList | async"
+        [items]="thoughtList$ | async"
         (deleted)="onThoughtDeleted($event)"
       ></app-gratitude-list>
 
@@ -39,14 +43,19 @@ import { Thought } from '../../models/thought';
     </md-card>
   `
 })
-export class GratitudeDiaryComponent {
+export class GratitudeDiaryComponent implements OnInit {
   @ViewChild('newThought')
   newThought: ElementRef;
-  thoughtList: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
+  isLoading$: Observable<boolean> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadingStatus);
+  thoughtList$: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
 
   constructor(
     private store: Store<fromGratitudeDiaryReducers.State>,
   ) {}
+
+  ngOnInit() {
+    this.store.dispatch(new fromThoughtsActions.LoadAction());
+  }
 
   createThought(text: string): void {
     this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(text));

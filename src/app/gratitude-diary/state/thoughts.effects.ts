@@ -18,7 +18,6 @@ export class ThoughtsEffects {
   @Effect()
   loadThoughtList$: Observable<Action> = this.actions$
     .ofType(fromThoughtsActions.LOAD)
-    .startWith(new fromThoughtsActions.LoadAction())
     .switchMap(() => this.diaryService.readThoughts().take(1))
     .map((data: Thought[]) => new fromThoughtsActions.LoadSuccessAction(data))
     .catch((error: any) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)));

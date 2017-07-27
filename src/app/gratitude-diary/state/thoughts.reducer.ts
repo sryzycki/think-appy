@@ -61,3 +61,5 @@ export function reducer(
  * Selectors.
  */
 export const getList = (state: State): Thought[] => state.list;
+
+export const getIsLoading = (state: State): boolean => state.isLoading;

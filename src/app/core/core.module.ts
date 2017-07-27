@@ -6,6 +6,7 @@ import {
   MdCardModule,
   MdInputModule,
   MdListModule,
+  MdProgressBarModule,
   MdToolbarModule,
 } from '@angular/material';
 
@@ -18,6 +19,7 @@ const CORE_MODULES = [
   MdCardModule,
   MdInputModule,
   MdListModule,
+  MdProgressBarModule,
   MdToolbarModule,
 ];
 
