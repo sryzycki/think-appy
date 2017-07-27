@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MdButtonModule,
   MdCardModule,
+  MdIconModule,
   MdInputModule,
   MdListModule,
   MdProgressBarModule,
@@ -17,6 +18,7 @@ const CORE_MODULES = [
   FlexLayoutModule,
   MdButtonModule,
   MdCardModule,
+  MdIconModule,
   MdInputModule,
   MdListModule,
   MdProgressBarModule,

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
+import { FirebaseError } from 'firebase/app';
 
 import * as fromThoughtsActions from './thoughts.actions';
 import { Thought } from '../models/thought';
@@ -20,7 +21,7 @@ export class ThoughtsEffects {
     .ofType(fromThoughtsActions.LOAD)
     .switchMap(() => this.diaryService.readThoughts().take(1))
     .map((data: Thought[]) => new fromThoughtsActions.LoadSuccessAction(data))
-    .catch((error: any) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)));
+    .catch((error: FirebaseError) => Observable.of(new fromThoughtsActions.LoadErrorAction(error)));
 
   @Effect()
   createThought$: Observable<Action> = this.actions$

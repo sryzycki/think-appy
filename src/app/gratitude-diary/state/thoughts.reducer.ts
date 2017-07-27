@@ -1,9 +1,12 @@
+import { FirebaseError } from 'firebase/app';
+
 import * as fromThoughtsActions from './thoughts.actions';
 import { Thought } from '../models/thought';
 
 export interface State {
   isLoading: boolean,
   loaded: boolean,
+  loadError?: FirebaseError,
   list: Thought[],
 }
 
@@ -28,6 +31,12 @@ export function reducer(
         isLoading: false,
         loaded: true,
         list: action.payload,
+      });
+
+    case fromThoughtsActions.LOAD_ERROR:
+      return Object.assign({}, state, {
+        isLoading: false,
+        loadError: action.payload,
       });
 
     case fromThoughtsActions.CREATE_THOUGHT_SUCCESS:
@@ -63,3 +72,5 @@ export function reducer(
 export const getList = (state: State): Thought[] => state.list;
 
 export const getIsLoading = (state: State): boolean => state.isLoading;
+
+export const getLoadError = (state: State): FirebaseError|undefined => state.loadError;

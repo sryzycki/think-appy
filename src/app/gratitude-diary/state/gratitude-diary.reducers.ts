@@ -18,3 +18,5 @@ export const getThoughtsState = createSelector(getFractalState, (state: State) =
 export const getThoughtList = createSelector(getThoughtsState, fromThoughtsReducer.getList);
 
 export const getThoughtLoadingStatus = createSelector(getThoughtsState, fromThoughtsReducer.getIsLoading);
+
+export const getThoughtLoadError = createSelector(getThoughtsState, fromThoughtsReducer.getLoadError);

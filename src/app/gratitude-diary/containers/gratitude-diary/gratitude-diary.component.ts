@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { FirebaseError } from 'firebase/app';
 
 import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
 import * as fromThoughtsActions from '../../state/thoughts.actions';
@@ -24,6 +25,13 @@ import { Thought } from '../../models/thought';
         [items]="thoughtList$ | async"
         (deleted)="onThoughtDeleted($event)"
       ></app-gratitude-list>
+      <div
+        *ngIf="loadError$ | async"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+      >
+        <md-icon color="warn">error</md-icon>&nbsp;<span>{{ (loadError$ | async)?.message }}</span>
+      </div>
 
       <md-input-container class="input-container">
         <input
@@ -47,6 +55,7 @@ export class GratitudeDiaryComponent implements OnInit {
   @ViewChild('newThought')
   newThought: ElementRef;
   isLoading$: Observable<boolean> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadingStatus);
+  loadError$: Observable<FirebaseError> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadError);
   thoughtList$: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
 
   constructor(
