@@ -39,8 +39,14 @@ export function reducer(
         loadError: action.payload,
       });
 
+    case fromThoughtsActions.CREATE_THOUGHT:
+      return Object.assign({}, state, {
+        isLoading: true,
+      });
+
     case fromThoughtsActions.CREATE_THOUGHT_SUCCESS:
       return Object.assign({}, state, {
+        isLoading: false,
         list: [
           ...state.list,
           action.payload,
