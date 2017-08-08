@@ -27,11 +27,11 @@ import { GratitudeDiaryService } from '../../services/gratitude-diary.service';
         (deleted)="onThoughtDeleted($event)"
       ></app-gratitude-list>
       <div
-        *ngIf="loadError$ | async"
+        *ngIf="loadError$ | async as loadError"
         fxLayout="row"
         fxLayoutAlign="start center"
       >
-        <md-icon color="warn">error</md-icon>&nbsp;<span>{{ (loadError$ | async)?.message }}</span>
+        <md-icon color="warn">error</md-icon>&nbsp;<span>{{ loadError.message }}</span>
       </div>
 
       <app-gratitude-form
