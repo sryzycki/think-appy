@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-gratitude-form',
   styleUrls: ['./gratitude-form.component.scss'],
   template: `
@@ -18,7 +19,7 @@ import { NgForm } from '@angular/forms';
             placeholder="Type in what you're grateful for"
             required
             mdInput
-            [ngModel]="text"
+            [ngModel]="text | async"
           />
         </md-input-container>
         <button
@@ -35,7 +36,7 @@ export class GratitudeFormComponent {
   @ViewChild('f')
   form: NgForm;
   @Input()
-  text: string;
+  text: Observable<string>;
   @Output()
   added: EventEmitter<string> = new EventEmitter<string>();
 

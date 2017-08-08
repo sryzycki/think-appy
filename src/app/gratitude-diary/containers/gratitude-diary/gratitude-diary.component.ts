@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/observable/of';
 import { FirebaseError } from 'firebase/app';
 
 import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
@@ -41,7 +42,7 @@ import { Thought } from '../../models/thought';
   `
 })
 export class GratitudeDiaryComponent implements OnInit {
-  thoughtText = '';
+  thoughtText = Observable.of('');
   isLoading$: Observable<boolean> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadingStatus);
   loadError$: Observable<FirebaseError> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadError);
   thoughtList$: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
@@ -60,6 +61,6 @@ export class GratitudeDiaryComponent implements OnInit {
 
   public onAddedThought(event: string) {
     this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(event));
-    this.thoughtText = '';
+    this.thoughtText = Observable.of('');
   }
 }
