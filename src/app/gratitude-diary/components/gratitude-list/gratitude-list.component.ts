@@ -18,8 +18,10 @@ import { Thought } from '../../models/thought';
           fxLayoutAlign="center center"
           style="width: 100%"
         >
-          <b>{{ i + 1 }}.&nbsp;</b>{{ item.text }}
-          <span fxFlex="grow"></span>
+          <div fxFlex="grow">
+            <b>{{ i + 1 }}.&nbsp;</b>
+            {{ item.text }}
+          </div>
           <button
             md-button
             (click)="delete(item)"
