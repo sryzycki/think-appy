@@ -7,8 +7,8 @@ import 'rxjs/add/operator/switchMap';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AFUnwrappedDataSnapshot } from 'angularfire2/interfaces';
 
-import { Thought } from '../models/thought';
 import { generateId } from '../../utils/index';
+import { Thought } from '../models/thought';
 
 @Injectable()
 export class GratitudeDiaryService {
@@ -26,7 +26,9 @@ export class GratitudeDiaryService {
     private db: AngularFireDatabase,
   ) {}
 
-  public createThought(newThought: Thought): Observable<Thought> {
+  public createThought(newThoughtText: string): Observable<Thought> {
+    const newThought: Thought = GratitudeDiaryService.getNewThought(newThoughtText);
+
     return Observable.create((observer: Observer<Thought>) => {
       this.thoughtList$
         .push(newThought)

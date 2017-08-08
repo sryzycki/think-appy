@@ -1,15 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-
-import { Thought } from '../../models/thought';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -17,50 +6,45 @@ import { NgForm } from '@angular/forms';
   selector: 'app-gratitude-form',
   styleUrls: ['./gratitude-form.component.scss'],
   template: `
-    <form
-      novalidate
-      #thoughtForm="ngForm"
-      (ngSubmit)="handleSubmit(thoughtForm.value.text, thoughtForm.valid)"
-    >
-      <md-input-container class="input-container">
-        <input
-          name="text"
-          placeholder="Type in what you're grateful for"
-          required
-          mdInput
-          [ngModel]="detail.text"
-        />
-      </md-input-container>
-      <button
-        class="button"
-        md-raised-button
-        color="primary"
-        [disabled]="thoughtForm.invalid"
-      >Add another one!</button>
-    </form>
+    <div>
+      <form
+        novalidate
+        #f="ngForm"
+        (ngSubmit)="handleSubmit(f.value.text, f.valid)"
+      >
+        <md-input-container class="input-container">
+          <input
+            name="text"
+            placeholder="Type in what you're grateful for"
+            required
+            mdInput
+            [ngModel]="text"
+          />
+        </md-input-container>
+        <button
+          class="button"
+          md-raised-button
+          color="primary"
+          [disabled]="f.invalid"
+        >Add another one!</button>
+      </form>
+    </div>
   `
 })
-export class GratitudeFormComponent implements OnChanges {
-  @ViewChild('thoughtForm')
-  thoughtForm: NgForm;
+export class GratitudeFormComponent {
+  @ViewChild('f')
+  form: NgForm;
   @Input()
-  detail: Thought;
+  text: string;
   @Output()
-  added: EventEmitter<Thought> = new EventEmitter<Thought>();
+  added: EventEmitter<string> = new EventEmitter<string>();
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.detail) {
-      this.detail = Object.assign({}, changes.detail.currentValue);
-    }
-  }
-
-  handleSubmit(value: string, isValid: boolean) {
+  public handleSubmit(formValue: string, isValid: boolean): void {
     if (!isValid) {
       return;
     }
 
-    this.detail.text = value;
-    this.added.emit(this.detail);
-    this.thoughtForm.resetForm();
+    this.added.emit(formValue);
+    this.form.resetForm();
   }
 }

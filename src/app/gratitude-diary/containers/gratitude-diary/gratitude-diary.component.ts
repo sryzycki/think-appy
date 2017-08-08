@@ -6,7 +6,6 @@ import { FirebaseError } from 'firebase/app';
 import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducers';
 import * as fromThoughtsActions from '../../state/thoughts.actions';
 import { Thought } from '../../models/thought';
-import { GratitudeDiaryService } from '../../services/gratitude-diary.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,24 +34,21 @@ import { GratitudeDiaryService } from '../../services/gratitude-diary.service';
       </div>
 
       <app-gratitude-form
-        [detail]="thought"
+        [text]="thoughtText"
         (added)="onAddedThought($event)"
       ></app-gratitude-form>
     </md-card>
   `
 })
 export class GratitudeDiaryComponent implements OnInit {
-  thought: Thought;
+  thoughtText = '';
   isLoading$: Observable<boolean> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadingStatus);
   loadError$: Observable<FirebaseError> = this.store.select(fromGratitudeDiaryReducers.getThoughtLoadError);
   thoughtList$: Observable<Thought[]> = this.store.select(fromGratitudeDiaryReducers.getThoughtList);
 
   public constructor(
     private store: Store<fromGratitudeDiaryReducers.State>,
-    private gratitudeService: GratitudeDiaryService,
-  ) {
-    this.setNewThought();
-  }
+  ) {}
 
   public ngOnInit() {
     this.store.dispatch(new fromThoughtsActions.LoadAction());
@@ -62,12 +58,8 @@ export class GratitudeDiaryComponent implements OnInit {
     this.store.dispatch(new fromThoughtsActions.DeleteThoughtAction(item))
   }
 
-  public onAddedThought(event: Thought) {
+  public onAddedThought(event: string) {
     this.store.dispatch(new fromThoughtsActions.CreateThoughtAction(event));
-    this.setNewThought();
-  }
-
-  private setNewThought() {
-    this.thought = GratitudeDiaryService.getNewThought();
+    this.thoughtText = '';
   }
 }
