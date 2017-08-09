@@ -1,5 +1,6 @@
-import * as fromThoughtsReducer from './thoughts.reducer';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
+import * as fromThoughtsReducer from './thoughts.reducer';
 
 export const gratitudeDiaryReducerFractal = 'gratitudeDiary';
 
