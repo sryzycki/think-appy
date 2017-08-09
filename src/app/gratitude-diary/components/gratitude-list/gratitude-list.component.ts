@@ -1,7 +1,9 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Input, Output, EventEmitter,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 import { Thought } from '../../models/thought';
