@@ -9,7 +9,7 @@ import * as fromGratitudeDiaryReducers from '../../state/gratitude-diary.reducer
 import * as fromThoughtsActions from '../../state/thoughts.actions';
 import { GratitudeDiaryComponent } from './gratitude-diary.component';
 
-describe('GratitudeDiaryComponent', () => {
+fdescribe('GratitudeDiaryComponent', () => {
   let component: GratitudeDiaryComponent;
   let fixture: ComponentFixture<GratitudeDiaryComponent>;
   let store: Store<fromGratitudeDiaryReducers.State>;
@@ -45,4 +45,14 @@ describe('GratitudeDiaryComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show progress bar when loading items', () => {
+    const action: fromThoughtsActions.Actions = fromThoughtsActions.LoadAction;
+
+    console.log(progressBarEl);
+
+    store.dispatch(action);
+
+    console.log(progressBarEl);
+  })
 });
